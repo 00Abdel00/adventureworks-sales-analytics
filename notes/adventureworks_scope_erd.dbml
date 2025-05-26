@@ -1,0 +1,231 @@
+Table Employee {
+  BusinessEntityID	int [primary key]
+  NationalIDNumber	nvarchar
+  LoginID	nvarchar
+  OrganizationNode	hierarchyid
+  OrganizationLevel	smallint
+  JobTitle	nvarchar
+  BirthDate	date
+  MaritalStatus	nchar
+  Gender	nchar
+  HireDate	date
+  SalariedFlag	bit
+  VacationHours	smallint
+  SickLeaveHours	smallint
+  CurrentFlag	bit
+  rowguid	uniqueidentifier
+  ModifiedDate	datetime
+}
+
+Table Address {
+  AddressID	int [primary key]
+  AddressLine1	nvarchar
+  AddressLine2	nvarchar
+  City	nvarchar
+  StateProvinceID	int
+  PostalCode	nvarchar
+  SpatialLocation	geography
+  rowguid	uniqueidentifier
+  ModifiedDate	datetime
+}
+
+Table BusinessEntity {
+  BusinessEntityID	int [primary key]
+  rowguid	uniqueidentifier
+  ModifiedDate	datetime
+}
+
+Table CountryRegion {
+  CountryRegionCode	nvarchar [primary key]
+  Name	nvarchar
+  ModifiedDate	datetime
+}
+
+Table Person {
+  BusinessEntityID	int [primary key]
+  PersonType	nchar
+  NameStyle	bit
+  Title	nvarchar
+  FirstName	nvarchar
+  MiddleName	nvarchar
+  LastName	nvarchar
+  Suffix	nvarchar
+  EmailPromotion	int
+  AdditionalContactInfo	xml
+  Demographics	xml
+  rowguid	uniqueidentifier
+  ModifiedDate	datetime
+}
+
+Table StateProvince {
+  StateProvinceID	int [primary key]
+  StateProvinceCode	nchar
+  CountryRegionCode	nvarchar
+  IsOnlyStateProvinceFlag	bit
+  Name	nvarchar
+  TerritoryID	int
+  rowguid	uniqueidentifier
+  ModifiedDate	datetime
+}
+
+Table Product {
+  ProductID	int [primary key]
+  Name	nvarchar
+  ProductNumber	nvarchar
+  MakeFlag	bit
+  FinishedGoodsFlag	bit
+  Color	nvarchar
+  SafetyStockLevel	smallint
+  ReorderPoint	smallint
+  StandardCost	money
+  ListPrice	money
+  Size	nvarchar
+  SizeUnitMeasureCode	nchar
+  WeightUnitMeasureCode	nchar
+  Weight	decimal
+  DaysToManufacture	int
+  ProductLine	nchar
+  Class	nchar
+  Style	nchar
+  ProductSubcategoryID	int
+  ProductModelID	int
+  SellStartDate	datetime
+  SellEndDate	datetime
+  DiscontinuedDate	datetime
+  rowguid	uniqueidentifier
+  ModifiedDate	datetime
+}
+
+Table ProductCategory {
+  ProductCategoryID	int [primary key]
+  Name	nvarchar
+  rowguid	uniqueidentifier
+  ModifiedDate	datetime
+}
+
+Table ProductModel {
+  ProductModelID	int [primary key]
+  Name	nvarchar
+  CatalogDescription	xml
+  Instructions	xml
+  rowguid	uniqueidentifier
+  ModifiedDate	datetime
+}
+
+Table ProductSubcategory {
+  ProductSubcategoryID	int [primary key]
+  ProductCategoryID	int
+  Name	nvarchar
+  rowguid	uniqueidentifier
+  ModifiedDate	datetime
+}
+
+Table Customer {
+  CustomerID	int [primary key]
+  PersonID	int
+  StoreID	int
+  TerritoryID	int
+  AccountNumber	varchar
+  rowguid	uniqueidentifier
+  ModifiedDate	datetime
+}
+
+Table SalesOrderDetail {
+  SalesOrderID	int [primary key]
+  SalesOrderDetailID	int [primary key]
+  CarrierTrackingNumber	nvarchar
+  OrderQty	smallint
+  ProductID	int
+  SpecialOfferID	int
+  UnitPrice	money
+  UnitPriceDiscount	money
+  LineTotal	numeric
+  rowguid	uniqueidentifier
+  ModifiedDate	datetime
+}
+
+Table SalesOrderHeader {
+  SalesOrderID	int [primary key]
+  RevisionNumber	tinyint
+  OrderDate	datetime
+  DueDate	datetime
+  ShipDate	datetime
+  Status	tinyint
+  OnlineOrderFlag	bit
+  SalesOrderNumber	nvarchar
+  PurchaseOrderNumber	nvarchar
+  AccountNumber	nvarchar
+  CustomerID	int
+  SalesPersonID	int
+  TerritoryID	int
+  BillToAddressID	int
+  ShipToAddressID	int
+  ShipMethodID	int
+  CreditCardID	int
+  CreditCardApprovalCode	varchar
+  CurrencyRateID	int
+  SubTotal	money
+  TaxAmt	money
+  Freight	money
+  TotalDue	money
+  Comment	nvarchar
+  rowguid	uniqueidentifier
+  ModifiedDate	datetime
+}
+
+Table SalesPerson {
+  BusinessEntityID	int [primary key]
+  TerritoryID	int
+  SalesQuota	money
+  Bonus	money
+  CommissionPct	smallmoney
+  SalesYTD	money
+  SalesLastYear	money
+  rowguid	uniqueidentifier
+  ModifiedDate	datetime
+}
+
+Table SalesTerritory {
+  TerritoryID	int [primary key]
+  Name	nvarchar
+  CountryRegionCode	nvarchar
+  Group	nvarchar
+  SalesYTD	money
+  SalesLastYear	money
+  CostYTD	money
+  CostLastYear	money
+  rowguid	uniqueidentifier
+  ModifiedDate	datetime
+}
+
+Table Store {
+  BusinessEntityID	int [primary key]
+  Name	nvarchar
+  SalesPersonID	int
+  Demographics	xml
+  rowguid	uniqueidentifier
+  ModifiedDate	datetime
+}
+
+Ref: Employee.BusinessEntityID > Person.BusinessEntityID
+Ref: Address.StateProvinceID > StateProvince.StateProvinceID
+Ref: Person.BusinessEntityID > BusinessEntity.BusinessEntityID
+Ref: StateProvince.CountryRegionCode > CountryRegion.CountryRegionCode
+Ref: StateProvince.TerritoryID > SalesTerritory.TerritoryID
+Ref: Product.ProductSubcategoryID > ProductSubcategory.ProductSubcategoryID
+Ref: Product.ProductModelID > ProductModel.ProductModelID
+Ref: ProductSubcategory.ProductCategoryID > ProductCategory.ProductCategoryID
+Ref: Customer.PersonID > Person.BusinessEntityID
+Ref: Customer.StoreID > Store.BusinessEntityID
+Ref: Customer.TerritoryID > SalesTerritory.TerritoryID
+Ref: SalesOrderDetail.SalesOrderID > SalesOrderHeader.SalesOrderID
+Ref: SalesOrderHeader.CustomerID > Customer.CustomerID
+Ref: SalesOrderHeader.SalesPersonID > SalesPerson.BusinessEntityID
+Ref: SalesOrderHeader.TerritoryID > SalesTerritory.TerritoryID
+Ref: SalesOrderHeader.BillToAddressID > Address.AddressID
+Ref: SalesOrderHeader.ShipToAddressID > Address.AddressID
+Ref: SalesPerson.BusinessEntityID > Employee.BusinessEntityID
+Ref: SalesPerson.TerritoryID > SalesTerritory.TerritoryID
+Ref: SalesTerritory.CountryRegionCode > CountryRegion.CountryRegionCode
+Ref: Store.BusinessEntityID > BusinessEntity.BusinessEntityID
+Ref: Store.SalesPersonID > SalesPerson.BusinessEntityID
