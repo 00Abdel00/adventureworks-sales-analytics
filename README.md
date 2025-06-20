@@ -1,77 +1,56 @@
 # AdventureWorks Sales Analytics
 
-This project explores the AdventureWorks2022 dataset to extract actionable business insights through SQL queries and data visualization. It is structured around key performance indicators (KPIs) and organized analysis files.
+This project explores the AdventureWorks2022 dataset with the goal of uncovering key business insights related to product performance, customer behavior, geographic distribution, and the impact of discounts over time. It includes structured exploratory queries in SQL, summary insights, and visual analytics built in Power BI.
 
 ## 📁 Repository Structure
 
-- `csv/`: Contains all exported database metadata and raw schema extractions.
-  - `raw_column_schema_adventureworks2022.csv`
-  - `cleaned_column_schema_adventureworks2022.csv`
-  - `raw_primary_keys.csv`
-  - `raw_foreign_keys.csv`
+```
+adventureworks-sales-analytics/
+├── csv/                   # Schema exploration outputs (raw + cleaned)
+├── notes/                 # Project scope, ERD, KPIs
+├── sql/                   # All exploratory SQL queries
+│   ├── Customer Segments/
+│   ├── Discount Impact/
+│   ├── Geographic Insights/
+│   ├── Product & Sales Volume/
+│   └── Time-Based/
+├── visuals/               # All Power BI visuals (PNG)
+│   ├── Customer Segments/
+│   ├── Discount Impact/
+│   ├── Geographic Insights/
+│   ├── Product & Sales Volume/
+│   ├── Time-Based/
+│   └── schema/
+├── powerbi/               # Power BI .pbix file
+└── README.md
+```
 
-- `notes/`: Markdown notes and planning documentation.
-  - `schema_cleaning_notes.md`
-  - `scope_and_objectives.md`
-  - `kpis.md`
-  - `adventureworks_scope_erd.dbml`
+## 🎯 Objectives
 
-- `visuals/`: Supporting project visuals.
-  - `erd_scope.png`
+- Understand which products and categories generate the most revenue.
+- Compare store vs individual customer behavior.
+- Evaluate how discounts affect purchase behavior.
+- Analyze geographic sales performance.
+- Observe revenue evolution over time.
 
-- `sql/`: Contains subfolders for exploration queries by KPI area:
-  - `Product & Sales Volume/`
-  - `Time-Based/`
-  - `Customer Segments/`
-  - `Discount Impact/`
-  - `Geographic Insights/`
+## 🛠 Tools Used
 
-Each folder contains:
-  - `.sql` files named by the insight they produce.
-  - A summary `.md` file recapping what the queries show.
+- Microsoft SQL Server
+- Power BI Desktop
+- VS Code, Git
+- Excel / Google Sheets (for documentation)
 
-- `powerbi/`: Reserved for Power BI visuals (to be added later).
+## 📊 Key Visuals (Power BI)
 
-## ✅ Project Progress
+- Top 10 Selling Products by Revenue
+- Monthly & Yearly Revenue Trend
+- Revenue by Product Category & Subcategory
+- Revenue by Customer Type (Store vs Individual)
+- Total Order Quantity by Territory
+- Order Distribution by Day of Week
+- Average Discount by Category
+- Order Quantity vs Discount Bins
 
-### 📊 Schema Exploration
-- Exported and analyzed all tables and columns.
-- Identified primary and foreign keys.
-- Built an Entity-Relationship Diagram to define scope.
-- Saved ERD in `.dbml` and image format.
+## ✅ Status
 
-### 🔍 KPI Exploration
-
-#### 1. Product & Sales Volume
-- Top 10 best-selling products by revenue and quantity.
-- Sales grouped by product categories and subcategories.
-- Identification of never-sold products and correlation with categorization.
-
-#### 2. Time-Based Trends
-- Monthly and yearly revenue trends.
-- Average order value by month.
-- Weekly order distribution by weekday.
-
-#### 3. Discount Impact
-- Average discount by product category.
-- Relationship between discount rate and order quantity.
-- Distribution of discount rates shows that most discounts are very small.
-
-#### 4. Customer Segments
-- Revenue and order count comparison between stores and individuals.
-- Top 10 customers by revenue, enriched with names.
-- Order frequency and average order value for each segment.
-
-#### 5. Geographic Insights
-- Revenue, order count, and average order value by territory.
-- Highlighting that high order count doesn't always mean high revenue (e.g., Australia vs Central US).
-
-## 🛣️ Next Steps
-
-- Build Power BI dashboard to consolidate insights.
-- Add Markdown-based executive summary and key recommendations.
-- Wrap with a conclusion and portfolio polishing.
-
----
-
-*Built with AdventureWorks2022, SQL Server, SSMS, and markdown-powered documentation.*
+✅ Complete — all KPIs explored with queries and visualizations generated.
